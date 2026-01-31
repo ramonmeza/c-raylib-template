@@ -1,3 +1,5 @@
+#pragma once
+
 typedef struct {
     int RAND_SEED;
     float FIXED_UPDATE_TIME;
