@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CONFIGURATION_H
+#define CONFIGURATION_H
 
 typedef struct {
     int RAND_SEED;
@@ -16,3 +18,5 @@ const Configuration config = {
     .RAND_SEED = 42069,
     .FIXED_UPDATE_TIME = 1.0 / 60.0,
 };
+
+#endif // CONFIGURATION_H

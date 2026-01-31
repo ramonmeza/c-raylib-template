@@ -18,6 +18,18 @@ void fixedUpdate(Game *game, const float deltaTime) {
     // add code here
 }
 
+void drawGame(Game *game) {
+    BeginMode2D(game->mainCamera);
+    // add drawing code here
+    EndMode2D();
+}
+
+void drawUI(Game * game) {
+    // add UI drawing code here
+    
+    DrawFPS(10, 10);
+}
+
 void runGame(int windowWidth, int windowHeight, const char* windowTitle) {
     InitWindow(windowWidth, windowHeight, windowTitle);
     SetRandomSeed(config.RAND_SEED);
@@ -25,12 +37,7 @@ void runGame(int windowWidth, int windowHeight, const char* windowTitle) {
     Game game = {0};
     
     // init main camera
-    game.mainCamera.offset.x = windowWidth / 2.0;
-    game.mainCamera.offset.y = windowHeight / 2.0;
-    game.mainCamera.target.x = 0;
-    game.mainCamera.target.y = 0;
-    game.mainCamera.rotation = 0.0;
-    game.mainCamera.zoom = 1.0;
+    initializeCamera(&game.mainCamera, windowWidth, windowHeight);
 
     float fixedUpdateAccum = 0.0;
 
@@ -51,19 +58,17 @@ void runGame(int windowWidth, int windowHeight, const char* windowTitle) {
     CloseWindow();
 }
 
-void drawGame(Game *game) {
-    BeginMode2D(game->mainCamera);
-    EndMode2D();
-}
-
-void drawUI(Game * game) {
-    DrawFPS(10, 10);
-}
-
 void render(Game *game) {
     BeginDrawing();
     ClearBackground(BLACK);
     drawGame(game);
     drawUI(game);
     EndDrawing();
+}
+
+void initializeCamera(Camera2D *camera, int windowWidth, int windowHeight) {
+    camera->offset = (Vector2){ windowWidth / 2.0f, windowHeight / 2.0f };
+    camera->target = (Vector2){ 0.0f, 0.0f };
+    camera->rotation = 0.0f;
+    camera->zoom = 1.0f;
 }
